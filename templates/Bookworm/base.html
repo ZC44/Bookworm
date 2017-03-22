@@ -8,7 +8,7 @@
 
     /*Head features*/
     div#search {
-        margin-top: -2%;
+        margin-top: -4%;
         background-color: paleturquoise;
         padding-bottom: 1%;
     }
@@ -33,7 +33,7 @@
         z-index: 1;
         margin-left: 38%;
         margin-right: 40%;
-        margin-top: 1%;
+        margin-top: -2%;
     }
 
     /*Bottom Bar features*/
@@ -130,13 +130,23 @@
         to {transform: scale(1)}
     }
 
+    div#greet {
+        margin-top: 0%;
+        height: 2%;
+    }
+
     {%  block style_block %}
     {% endblock %}
 </style>
 
 <head>
     <title> Bookworm - {% block title_block %}{% endblock %}</title>
-    <a href="{% url 'home' %}" ><img src="{% static "Logo.jpg" %}" alt="Logo" style="width:20%;height:46px;" id="Logo"></a>
+    <div id="greet">
+        {% if user.is_authenticated %}
+            <h4>Hey {{ user }}</h4>
+        {% endif %}
+    </div>
+    <a href="{% url 'home' %}" ><img src="{% static "Logo.jpg" %}" alt="Logo" id="Logo" style="width:20%;  height:50px;"></a>
     <div id="search">
         <form>
             <input id="other" type="text" name="search" placeholder="Type here...">
@@ -161,6 +171,7 @@
         <ul id="bottombar">
         <li id="BBLeft"><a href="{% url 'home' %}">Home</a></li>
         {% if user.is_authenticated %}
+            <button id="BBC"><a href="/user/{{ user.userslug }}" style="color: white;text-decoration: none;">Profile</a></button>
             <button id="BBRight"><a href="{% url 'logout' %}" style="color: white;text-decoration: none;">Log Out</a></button>
         {% else %}
             <button id="BBC"><a href="{% url 'register' %}" style="color: white;text-decoration: none;">Register</a></button>

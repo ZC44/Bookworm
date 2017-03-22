@@ -9,7 +9,13 @@ from Bookworm.forms import *
 # Create your views here.
 
 def home(request):
-    popular = Book.objects.all()[:5]
+    rating_list = Rate.objects.all()
+    #if rating_list is None:
+    popular = Book.objects.order_by('?')[:5]
+    # else:
+    #     for book in rating_list:
+    #
+    #         b = {'title': , 'authors': ,'rating': }
     try:
         toRead = UserProfile.objects.get('toRead')
         read = Rate.objects.filter(user=UserProfile.userslug)

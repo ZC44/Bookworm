@@ -16,11 +16,14 @@
         ul#bookinfo {
             float: left;
             list-style: none;
-            margin-left: 5%;
-            margin-top: 5%;
+            margin: 8% auto auto 5%;
+        }
+        ul#bookinfo li{
+            padding: 2%;
         }
         ul#bookdetails {
-            margin-left: -13%;
+            margin: auto -4% auto -2%;
+            padding: 2%;
         }
         ul#bookdetails li{
             list-style: none;
@@ -53,7 +56,16 @@
             {% else %}
                 <li>Rating : No rating yet! </li>
             {% endif %}
+            <li><button id="to">Want to Read?</button></li>
+            <li><button id="read">Read?</button></li>
         </ul>
     </div>
     {% endif %}
+
+    {% block script_block %}
+        <script>
+
+        </script>
+    {% endblock %}
+
 {% endblock %}
