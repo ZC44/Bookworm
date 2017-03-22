@@ -1,0 +1,18 @@
+{% extends 'Bookworm/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %} 404 {% endblock %}
+
+{% block style_block %}
+    <style>
+        div#b {
+            background-image: {% static "bookshelf.jpg" %};
+        }
+    </style>
+{% endblock %}
+
+{% block body_block %}
+    <div id="b">
+        The bookshelf you've found appears to be empty!
+    </div>
+{% endblock %}

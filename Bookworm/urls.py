@@ -18,10 +18,13 @@ from Bookworm import views
 
 urlpatterns = (
     url(r'^$', views.home, name='home'),
-    url(r'^book/book_title/$', views.show_book, name='show_book'),
+    url(r'^book/(?P<bslug>[\w\-]+)/$', views.show_book, name='show_book'),
     url(r'^genres/$', views.show_genre, name='show_genre'),
     url(r'^search_results/$', views.search_results, name='search_results'),
-    url(r'^user/user_name/$', views.userpage, name='user'),
-    url(r'^user/user_name/recommendations/$', views.recommendations, name='recommendations'),
-    url(r'^base/$', views.base, name='base')
+    url(r'^user/(?P<uslug>[\w\-]+)/$', views.userpage, name='user'),
+    url(r'^user/(?P<uslug>[\w\-]+)/recommendations/$', views.recommendations, name='recommendations'),
+    url(r'^base/$', views.base, name='base'),
+    url(r'^register/$',views.register, name='register'),
+    url(r'^logout/$', views.user_logout, name='logout'),
+    url(r'^404/$', views.sorry, name='404')
 )

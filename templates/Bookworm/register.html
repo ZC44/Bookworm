@@ -1,0 +1,61 @@
+{% extends 'Bookworm/base.html' %}
+
+{% block style_block %}
+<style>
+    body { margin-bottom: 44px; }
+    /* Change styles for cancel button and signup button on extra small screens */
+    @media screen and (max-width: 300px) {
+        .cancelbtn, .registerb {
+           width: 100%;
+        }
+    }
+    div.container {
+        display: block;
+    }
+    button {
+        background-color: paleturquoise;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 50%;
+    }
+    input.registerb {
+        background-color: paleturquoise;
+        width: 50%;
+    }
+</style>
+{% endblock %}
+
+{% block title_block %} Register {% endblock %}
+{% block body_block %}
+
+    {% if registered %}
+        <strong>Bookworm thanks you for registering!</strong>
+    {% else %}
+        <strong>Register here!</strong><br />
+        <form id="user_form" method="post" action="{% url 'home' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="container">
+                <label><b>Username:</b></label>
+                <input type="text" placeholder="Enter username" name="username" required>
+                <br>
+                <label><b>Email:</b></label>
+                <input type="text" placeholder="Enter Email" name="email" required>
+                <br>
+                <label><b>Password:</b></label>
+                <input type="password" placeholder="Enter Password" name="password" required>
+
+                <label><b>Repeat Password:</b></label>
+                <input type="password" placeholder="Repeat Password" name="password-repeat" required>
+
+                <div class="clearfix">
+                    <button type="button" class="cancelbtn"><a href="{% url 'home' %}" style="text-decoration: none; color: black;"> Cancel</a></button>
+                    <input type="submit" name="submit" value="Register" class="registerb"/>
+                </div>
+              </div>
+         </form>
+    {% endif %}
+
+{% endblock %}

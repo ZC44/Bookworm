@@ -1,45 +1,59 @@
 {% extends 'Bookworm/base.html' %}
 
 {% block title_block %}
-	title by author name
+	{{ book }}
 {% endblock %}
 
 {% block style_block %}
     <style>
-    div#bookpage {
-        margin-left: 30%;
-        margin-top: 5%;
-    }
-    img#book {
-        margin-left: 25%;
-        width: 200px;
-        height: 300px;
-    }
-    ul#bookinfo {
-        list-style: none;
-        margin-left: 30%;
-    }
-    table {
-        margin-top: 5%;
-        margin-left: 35%;
-    }
+        div#bookpage {
+            display: inline;
+        }
+        img#book {
+            float: left;
+            margin-left: 30%;
+        }
+        ul#bookinfo {
+            float: left;
+            list-style: none;
+            margin-left: 5%;
+            margin-top: 5%;
+        }
+        ul#bookdetails {
+            margin-left: -13%;
+        }
+        ul#bookdetails li{
+            list-style: none;
+            display: inline;
+        }
     </style>
 {% endblock %}
 
 {% block body_block %}
+    {% if book %}
+    <h1><center> {{ book }} </center></h1>
     <div id="bookpage">
-        <table>
-            <tr>
-                <td><img id="book"></td>
-                <td>
-                    <ul id="bookinfo">
-                        <li>Bull</li>
-                        <li>Bull</li>
-                        <li>Bull</li>
-                        <li>Bull</li>
-                    </ul>
-                </td>
-            </tr>
-        </table>
+        <img id="book" style="width: 200px;height: 300px" src="{{ book.cover }}">
+        <ul id="bookinfo">
+            <ul id="bookdetails">
+                <li> Authors : </li>
+                {% for author in authors %}
+                    <li> {{ author }} ;</li>
+                {% endfor %}
+            </ul>
+            <ul id="bookdetails">
+                <li> Genres : </li>
+                {% for genre in genres %}
+                    <li>{{ genre }}</li>
+                {% endfor %}
+            </ul>
+            <li> ISBN10: {{ book.ISBN10 }}</li>
+            {% if rating is not None %}
+                <li>Rating : {{ rating }} </li>
+            {% else %}
+                <li>Rating : No rating yet! </li>
+            {% endif %}
+        </ul>
     </div>
+    {% endif %}
 {% endblock %}
