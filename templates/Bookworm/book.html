@@ -56,8 +56,13 @@
             {% else %}
                 <li>Rating : No rating yet! </li>
             {% endif %}
-            <li><button id="to">Want to Read?</button></li>
-            <li><button id="read">Read?</button></li>
+            {% if user.is_authenticated %}
+                <li><button id="to1">Want to Read?1</button></li>
+                <li><button id="read1">Read?1</button></li>
+            {% else %}
+                <li><button id="to">Want to Read?</button></li>
+                <li><button id="read">Read?</button></li>
+            {% endif %}
         </ul>
     </div>
     {% endif %}
