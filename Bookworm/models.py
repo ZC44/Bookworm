@@ -1,9 +1,9 @@
 from __future__ import unicode_literals
 from django.template.defaultfilters import slugify
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # Create your models here.
 class Author(models.Model):
@@ -30,6 +30,8 @@ class Book(models.Model):
     genres = models.ManyToManyField(Genre)
     authors = models.ManyToManyField(Author)
     bookslug = models.SlugField(unique=True)
+    rating = models.FloatField()
+    rated_by = models.ManyToManyField(User)
 
     def save(self,*args,**kwargs):
         self.bookslug = slugify(self.title)
@@ -42,8 +44,10 @@ class UserProfile(models.Model):
     user_name = models.OneToOneField(User)
     bio = models.CharField(max_length=1000,blank=True)
     picture = models.ImageField(upload_to='profile_images', blank=True)
-    toRead = models.ManyToManyField(Book, blank=True)
+    to_read = models.ManyToManyField(Book, blank=True, related_name = 'has_read')
     userslug = models.SlugField(unique=True)
+    has_read = models.ManyToManyField(Book, related_name = 'to_read')
+
 
     def save(self, *args, **kwargs):
         self.userslug = slugify(self.user_name)
@@ -55,11 +59,11 @@ class UserProfile(models.Model):
     def __unicode__(self):
         return self.user_name.username
 
-@receiver(post_save,sender=User)
-def create_profile(sender, instance, created, **kwargs):
-    if created:
-        UserProfile.objects.create(user=instance)
-    instance.profile.save()
+# @receiver(post_save,sender=User)
+# def create_profile(sender, instance, created, **kwargs):
+#     if created:
+#         UserProfile.objects.create(user=instance)
+#     instance.profile.save()
 
 class Rate(models.Model):
     book = models.ForeignKey(Book)
