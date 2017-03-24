@@ -1,0 +1,243 @@
+body {
+    margin: 0;
+}
+/*Base features*/
+
+/*Head*/
+div#search {
+    top: 0;
+    background-color: paleturquoise;
+    padding-bottom: 1%;
+    width: 100%;
+}
+ul#searchradio {
+    margin-left: 34%;
+    margin-top: 2%;
+}
+li#searchradio {
+    margin-right: 4%;
+    display:inline;
+    float:none;
+    color: rebeccapurple;
+}
+input[type=text]#other {
+    margin-top: 3%;
+    margin-left: 36%;
+    width: 20%;
+    height: 30px;
+}
+img#Logo {
+    z-index: 1;
+    height: 172px;
+    width: 20%;
+    margin-left: 80%;
+    margin-top: -130px;
+}
+div#greet {
+    margin-top: 0%;
+    height: 2%;
+}
+
+/*Bottom bar*/
+ul#bottombar {
+    background-color: black;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+li#BBLeft { float:left;}
+li a {
+    display: block;
+    color: white;
+    padding: 16px;
+    text-decoration: none;
+}
+button#BBC {
+    background-color: black;
+    text-decoration: none;
+    color: white;
+    border: black;
+    padding: 16px;
+    margin-left: 38%;
+    cursor: pointer;
+}
+button#BBRight {
+    background-color: black;
+    color: white;
+    border: black;
+    padding: 16px;
+    float: right;
+    cursor: pointer;
+}
+
+/*Login modal features*/
+/* Full-width input fields */
+input[type=text]#username, input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+/* Set a style for login button on bottom bar */
+button#modalb {
+    background-color: paleturquoise;
+    color: black;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+/* Center the image and position the close button */
+.container {
+    padding: 16px;
+}
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
+}
+/* Modal Content/Box */
+.modal-content {
+    background-color: whitesmoke;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid grey;
+    width: 50%; /* Could be more or less, depending on screen size */
+}
+/* Add Zoom Animation */
+.animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+}
+@-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)}
+    to {-webkit-transform: scale(1)}
+}
+@keyframes animatezoom {
+    from {transform: scale(0)}
+    to {transform: scale(1)}
+}
+
+/*Home features*/
+div#homegenre {
+    text-align:center;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+div.hometab {
+    float: left;
+    background-color: #f1f1f1;
+    width: 100%;
+    height: auto;
+    overflow-y: auto;
+}
+div.hometab button {
+    width: 50%;
+    float: left;
+    color: black;
+    padding: 22px 16px;
+    border: none;
+    outline: none;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+}
+div.hometab button:hover {
+    background-color: gainsboro;
+}
+/* Create an active/current tablink class */
+div.hometab button:focus, .active {
+    background-color: grey;
+}
+.hometabcontent {
+    display: none;
+    margin-left: 30%;
+    float: none;
+    padding: 0px 12px;
+    width: auto;
+    height: auto;
+    margin-bottom: 44px;
+}
+
+/*Book table features*/
+tr:nth-child(even) { background-color: paleturquoise;}
+td#detail {
+    margin-top: 5%;
+}
+td#cover{
+    width:100px;
+    height:100px;
+}
+tr:nth-child(even) td#cover {
+    float: right;
+}
+tr:nth-child(even) td#detail {
+    float: left;
+}
+tr:nth-child(odd) td#cover {
+    float: left;
+}
+tr:nth-child(odd) td#detail {
+    float: right;
+}
+
+/*Genre features*/
+/* Style the tab */
+div.genretab {
+    float: left;
+    background-color: #f1f1f1;
+    width: auto;
+    height: auto;
+    position: fixed;
+}
+/* Style the links inside the tab */
+div.genretab button {
+    margin-left: 30%;
+    display: block;
+    float: none;
+    color: black;
+    padding: 22px 16px;
+    width: 200px;
+    border: none;
+    outline: none;
+    text-align: left;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+}
+/* Change background color of links on hover */
+div.genretab button:hover {
+    background-color: gainsboro;
+}
+/* Create an active/current tablink class */
+div.genretab button:focus, .active {
+    background-color: grey;
+}
+/* Style the tab content */
+.genretabcontent {
+    float: none;
+    padding: 0px 12px;
+    width: auto;
+    height: auto;
+    margin-left: 45%;
+    display: none;
+    margin-top: -25%;
+}

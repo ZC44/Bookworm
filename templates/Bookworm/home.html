@@ -1,90 +1,21 @@
 {% extends 'Bookworm/base.html' %}
 {% load staticfiles %}
 
-{% block title_block %}
-    Home
-{% endblock %}
+{% block title_block %}- Home{% endblock %}
 
-{% block style_block %}
-    <style>
-        ul2 {
-            list-style-type: none;
-            overflow: hidden;
-        }
-        li2 a{
-            text-decoration: none;
-            padding: .2em 1em;
-            color: whitesmoke;
-            background-color: deepskyblue;
-        }
-        li2 a:hover {
-            background-color: dodgerblue;
-        }
-        div.hometab {
-            float: left;
-            background-color: #f1f1f1;
-            width: 100%;
-            height: auto;
-            overflow-y: auto;
-        }
-        div.hometab button {
-            width: 50%;
-            float: left;
-            color: black;
-            padding: 22px 16px;
-            border: none;
-            outline: none;
-            text-align: center;
-            cursor: pointer;
-            text-decoration: none;
-            transition: 0.3s;
-            font-size: 17px;
-        }
-        div.hometab button:hover {
-            background-color: gainsboro;
-        }
-        /* Create an active/current tablink class */
-        div.hometab button:focus, .active {
-            background-color: grey;
-        }
-        div.hometabcontent {
-            margin-left: 35%;
-            float: none;
-            padding: 0px 12px;
-            width: auto;
-            height: auto;
-            display: none;
-            margin-bottom: 44px;
-        }
-        td#detail {
-            margin-top: 5%;
-        }
-        tr:nth-child(even) td#cover {
-            float: right;
-        }
-        tr:nth-child(even) td#detail {
-            float: left;
-        }
-        tr:nth-child(odd) td#cover {
-            float: left;
-        }
-        tr:nth-child(odd) td#detail {
-            float: right;
-        }
-    </style>
-{% endblock %}
+<head><link rel="script" href="{% static 'files/home.js' %}"></head>
 
 {% block body_block %}
 
     <div id="homegenre">
-        <h2 style="text-align:center;margin-top: 5%;margin-bottom: 5%;"><strong><a style="color: black; text-decoration: none;" href="{% url 'show_genre' %}">Genres</a></strong></h2>
+        <h2><strong><a style="color: black; text-decoration: none;" href="{% url 'show_genre' %}">Genres</a></strong></h2>
     </div>
 
     <div class="hometab">
-        <button class="hometablinks" onclick="openHome(event, 'pop')" id="pop">Popular Books</button>
+        <button class="hometablinks" onclick="openHomeTabs(event, 'pop')">Popular Books</button>
         {% if user.is_authenticated %}
             {% if recommendations is not none %}
-                <button class="hometablinks" onclick="openHome(event, 'rec')">Recommended Books</button>
+                <button class="hometablinks" onclick="openHomeTabs(event, 'rec')">Recommended Books</button>
             {% endif %}
         {% endif %}
     </div>
@@ -93,7 +24,7 @@
         <table>
             {% for book in popular %}
                 <tr>
-                    <td id="cover"><a href="/Bookworm/book/{{ book.bookslug }}"><img style="width:100px;height:100px;" src="{% static "{{ book.bookslug }}.jpg" %}"></a></td>
+                    <td id="cover"><a href="/Bookworm/book/{{ book.bookslug }}"><img style="width:100px;height:100px;" src="{% static '{{ book.bookslug }}.jpg' %}"></a></td>
                     <td id="detail"><a href="/Bookworm/book/{{ book.bookslug }}" style="text-decoration: none;color: black;" >{{ book }}</a></td>
                 </tr>
             {% endfor %}
@@ -105,7 +36,7 @@
                 <table>
                     {% for book in recommendations %}
                         <tr>
-                            <td id="cover"><a href="/Bookworm/book/{{ book.bookslug }}"><img style="width:100px;height:100px;" src="{% static "{{ book.bookslug }}.jpg" %}"></a></td>
+                            <td id="cover"><a href="/Bookworm/book/{{ book.bookslug }}"><img style="width:100px;height:100px;" src="{{ book.cover }}"></a></td>
                             <td id="detail"><a href="/Bookworm/book/{{ book.bookslug }}" style="text-decoration: none;color: black;" >{{ book }}</a></td>
                         </tr>
                     {% endfor %}
@@ -113,25 +44,5 @@
             </div>
         {% endif %}
     {% endif %}
-
-    {% block script_block %}
-    <script>
-        function openHome(evt, tab) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("hometabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-            }
-            tablinks = document.getElementsByClassName("hometablinks");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-            document.getElementById(tab).style.display = "block";
-            evt.currentTarget.className += " active";
-        }
-        // Get the element with id="defaultOpen" and click on it
-        document.getElementById("pop").click();
-    </script>
-    {% endblock %}
 
 {% endblock %}
