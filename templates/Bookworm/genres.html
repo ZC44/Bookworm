@@ -1,8 +1,73 @@
 {% extends 'Bookworm/base.html' %}
 {% load staticfiles %}
-<head><link rel="script" href="{% static 'files/genres.js' %}"></head>
+
 {% block title_block %} Genres {% endblock %}
 
+<style>
+    /*Genre features*/
+    /* Style the tab */
+    div.genretab {
+        float: left;
+        background-color: #f1f1f1;
+        width: auto;
+        height: auto;
+        position: fixed;
+    }
+    /* Style the links inside the tab */
+    div.genretab button {
+        margin-left: 30%;
+        display: block;
+        float: none;
+        color: black;
+        padding: 22px 16px;
+        width: 200px;
+        border: none;
+        outline: none;
+        text-align: left;
+        cursor: pointer;
+        text-decoration: none;
+        transition: 0.3s;
+        font-size: 17px;
+    }
+    /* Change background color of links on hover */
+    div.genretab button:hover {
+        background-color: gainsboro;
+    }
+    /* Create an active/current tablink class */
+    div.genretab button:focus, .active {
+        background-color: grey;
+    }
+    /* Style the tab content */
+    div.genretabcontent {
+        float: none;
+        padding: 0px 12px;
+        width: auto;
+        height: auto;
+        margin-left: 45%;
+        display: none;
+        margin-top: -25%;
+    }
+    tr:nth-child(even) { background-color: paleturquoise;}
+    td#detail {
+        margin-top: 5%;
+    }
+    td#cover{
+        width:100px;
+        height:100px;
+    }
+    tr:nth-child(even) td#cover {
+        float: right;
+    }
+    tr:nth-child(even) td#detail {
+        float: left;
+    }
+    tr:nth-child(odd) td#cover {
+        float: left;
+    }
+    tr:nth-child(odd) td#detail {
+        float: right;
+    }
+</style>
 
 {% block body_block %}
 
@@ -33,4 +98,24 @@
         {% endif %}
     </div>
 
+<script>
+    /**
+ * Created by Z on 20/03/2017.
+ */
+function openGenre(evt, genre) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("genretabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("genretablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(genre).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+</script>
+
 {% endblock %}
+

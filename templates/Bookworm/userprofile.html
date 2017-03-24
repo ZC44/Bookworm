@@ -5,4 +5,26 @@
 {% endblock %}
 
 {% block body_block %}
+	<h4>Books you've read</h4>
+	
+	<table>
+		{% for book in has_read %}
+			<tr>
+				<td id="cover"><a href="/Bookworm/book/{{ book.bookslug }}"><img style="width:100px;height:100px;" src="{% static "{{ book.bookslug }}.jpg" %}"></a></td>
+				<td id="detail"><a href="/Bookworm/book/{{ book.bookslug }}" style="text-decoration: none;color: black;" >{{ book }}</a></td>
+			</tr>
+		{% endfor %}
+	</table>
+	
+	<h4>Your reading wishlist</h4>
+	<table>
+		{% for book in to_read %}
+			<tr>
+				<td id="cover"><a href="/Bookworm/book/{{ book.bookslug }}"><img style="width:100px;height:100px;" src="{% static "{{ book.bookslug }}.jpg" %}"></a></td>
+				<td id="detail"><a href="/Bookworm/book/{{ book.bookslug }}" style="text-decoration: none;color: black;" >{{ book }}</a></td>
+			</tr>
+		{% endfor %}
+	</table>
+	
+	
 {% endblock %}

@@ -51,25 +51,74 @@
                 {% endfor %}
             </ul>
             <li> ISBN10: {{ book.ISBN10 }}</li>
-            {% if rating is not None %}
+
+
+			{% if user.is_authenticated %}
+
+
+            {% if display_rate %}
+			<li>
+			<form method = "post" action="{% url 'rate' bslug %}" enctype = "multipart/form-data">
+			{% csrf_token %}
+
+
+
+            Rate the book:
+			<ul id="rateradio">
+                <li id="rateradio"><input type="radio" name="ratescore" value="1">Hated it</li>
+                <li id="rateradio"><input type="radio" name="ratescore" value="2">Not my cup of tea</li>
+				<li id="rateradio"><input type="radio" name="ratescore" value="3">It was alright</li>
+                <li id="rateradio"><input type="radio" name="ratescore" value="4">Good read</li>
+                <li id="rateradio"><input type="radio" name="ratescore" value="5" checked="checked">Best book ever</li>
+            </ul>
+			<input id="rate" type="submit" name="rate" style="margin-left: 1.5%;" value = "Rate">
+			</form>
+            </li>
+                {% else%}
+                <li>Already rated by you</li>
+            {% endif %}
+			{% endif %}
+			
+			{% if rating is not None %}
                 <li>Rating : {{ rating }} </li>
             {% else %}
                 <li>Rating : No rating yet! </li>
             {% endif %}
             {% if user.is_authenticated %}
-                <li><button id="to1">Want to Read?1</button></li>
-                <li><button id="read1">Read?1</button></li>
-            {% else %}
-                <li><button id="to">Want to Read?</button></li>
-                <li><button id="read">Read?</button></li>
-            {% endif %}
+
+                {% if toread %}
+                    <li>Added to wishlist!</li>
+                {% else %}
+                <li><form method = "post" action="{% url 'to_read' bslug %}" enctype = "multipart/form-data">
+                    {% csrf_token %}
+                    <input type="submit" id="to" value="Want to Read?">
+                    </form>
+
+                </li>
+                {% endif %}
+
+                {% if read %}
+                    <li>You have read this book!</li>
+                {% else %}
+                <li><form method = "post" action="{% url 'has_read' bslug %}" enctype = "multipart/form-data">
+                    {% csrf_token %}
+                    <input type = "submit" value = "Read?" id="read">
+                    </form>
+
+                </li>
+                {% endif %}
+            
+			
+			{% endif %}
+			
+			
         </ul>
     </div>
     {% endif %}
 
     {% block script_block %}
         <script>
-
+		
         </script>
     {% endblock %}
 

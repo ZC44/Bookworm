@@ -1,31 +1,20 @@
 {% extends 'Bookworm/base.html' %}
-
+{% load staticfiles %}
 {% block title_block %}
 {% endblock %}
 
+
+
 {% block body_block %}
-    <table id="books">
-        <ul>
-            <tr>
-                <td><img id="bookcover"></td>
-                <td>Book Information</td>
-            </tr>
-            <tr>
-                <td>Book Information</td>
-                <td><img id="bookcover"></td>
-            </tr>
-            <tr>
-                <td><img id="bookcover"></td>
-                <td>Book Information</td>
-            </tr>
-            <tr>
-                <td>Book Information</td>
-                <td><img id="bookcover"></td>
-            </tr>
-            <tr>
-                <td><img id="bookcover"></td>
-                <td>Book Information</td>
-            </tr>
-        </ul>
-    </table>
+    
+    <h4>Search results</h4>
+	
+	<table>
+		{% for book in results %}
+			<tr>
+				<td id="cover"><a href="/Bookworm/book/{{ book.bookslug }}"><img style="width:100px;height:100px;" src="{% static "{{ book.bookslug }}.jpg" %}"></a></td>
+				<td id="detail"><a href="/Bookworm/book/{{ book.bookslug }}" style="text-decoration: none;color: black;" >{{ book }}</a></td>
+			</tr>
+		{% endfor %}
+	</table>
 {% endblock %}
