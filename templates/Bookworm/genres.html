@@ -1,23 +1,25 @@
 {% extends 'Bookworm/base.html' %}
 {% load staticfiles %}
 
-{% block title_block %} Genres {% endblock %}
+{% block title_block %} -Genres {% endblock %}
 
+{% block style_block %}
 <style>
     /*Genre features*/
+    div#genrepage {
+        display: inline;
+    }
     /* Style the tab */
     div.genretab {
         float: left;
         background-color: #f1f1f1;
         width: auto;
         height: auto;
-        position: fixed;
     }
     /* Style the links inside the tab */
     div.genretab button {
         margin-left: 30%;
         display: block;
-        float: none;
         color: black;
         padding: 22px 16px;
         width: 200px;
@@ -30,48 +32,33 @@
         font-size: 17px;
     }
     /* Change background color of links on hover */
-    div.genretab button:hover {
-        background-color: gainsboro;
-    }
+    div.genretab button:hover {  background-color: gainsboro; }
     /* Create an active/current tablink class */
-    div.genretab button:focus, .active {
-        background-color: grey;
-    }
+    div.genretab button:focus, .active { background-color: grey; }
     /* Style the tab content */
     div.genretabcontent {
-        float: none;
-        padding: 0px 12px;
-        width: auto;
-        height: auto;
-        margin-left: 45%;
+        float: left;
+        padding: 0 2%;
         display: none;
-        margin-top: -25%;
+        margin-left: 10%;
+        width: 35%;
     }
-    tr:nth-child(even) { background-color: paleturquoise;}
-    td#detail {
-        margin-top: 5%;
-    }
+    td#detail {  margin-top: 5%;  }
     td#cover{
         width:100px;
         height:100px;
     }
-    tr:nth-child(even) td#cover {
-        float: right;
-    }
-    tr:nth-child(even) td#detail {
-        float: left;
-    }
-    tr:nth-child(odd) td#cover {
-        float: left;
-    }
-    tr:nth-child(odd) td#detail {
-        float: right;
-    }
+    tr:nth-child(even) {background-color: paleturquoise;}
+    tr:nth-child(even) td#cover {  float: right; }
+    tr:nth-child(even) td#detail {  float: left; }
+    tr:nth-child(odd) td#cover {    float: left; }
+    tr:nth-child(odd) td#detail {  float: right; }
 </style>
+{% endblock %}
 
 {% block body_block %}
 
-    <div>
+    <div id="genrepage">
         {% if genres and bookgenres %}
             <div class="genretab">
                 {% for genre in genres %}

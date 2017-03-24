@@ -9,22 +9,15 @@ from django.db.models import Avg
 from Bookworm.models import *
 from Bookworm.forms import *
 
-
 # Create your views here.
 
 def home(request):
-    rating_list = Rate.objects.all()
-    #if rating_list is None:
     popular = Book.objects.order_by('-rating')[:5]
-    # else:
-    #     for book in rating_list:
-    #
-    #         b = {'title': , 'authors': ,'rating': }
     try:
         user = request.user
         user_profile = UserProfile.objects.get(user_name=user)
-        toRead = user_profile.objects.get(to_read)
-        read = user_profile.objects.get(has_read)
+        toRead = user_profile.objects.get('to_read')
+        read = user_profile.objects.get('has_read')
         rec = Book.objects.all().exclude(toRead).exclude(read)[:5]
         recommendations = reversed(rec)
     except:
@@ -45,10 +38,6 @@ def show_book(request, bslug):
         context_dict['genres'] = book.genres.all()
         context_dict['bslug'] = bslug
         context_dict['rating'] = book.rating
-        #try:
-           # context_dict['rating'] = Rate.objects.filter(book=book).aggregate(Avg('rating'))
-        #except:
-           # context_dict['rating'] = None
 
         if request.user.is_authenticated():
             ratings = book.rated_by.all()
@@ -71,7 +60,7 @@ def show_book(request, bslug):
         context_dict['authors'] = None
         context_dict['genres'] = None
         context_dict['rating'] = None
-        return HttpResponse('Bookworm/404.html')
+        return render(request,'Bookworm/404.html')
 
 def show_genre(request):
     context_dict = {}
@@ -79,24 +68,23 @@ def show_genre(request):
     context_dict['bookgenres'] = Book.objects.values_list('bookslug','title','genres',)
     return render(request, 'Bookworm/genres.html',context=context_dict)
 
-# def search_results(request):
-#     context_dict = {}
-#     return render(request, 'Bookworm/searchresults.html',context=context_dict)
-
 def userpage(request,uslug):
     context_dict = {}
 
-    if request.method == 'POST':
+    try:
+        if request.method == 'POST':
 
-        try:
-            user = request.user
-            user_profile = UserProfile.objects.get(user_name=user)
-            context_dict['user'] = user
-            context_dict['to_read'] = user_profile.to_read.all()
-            context_dict['has_read'] = user_profile.has_read.all()
-        except:
-            context_dict['user'] = None
-        return render(request, 'Bookworm/home.html',context=context_dict)
+            try:
+                user = request.user
+                user_profile = UserProfile.objects.get(user_name=user)
+                context_dict['user'] = user
+                context_dict['to_read'] = user_profile.to_read.all()
+                context_dict['has_read'] = user_profile.has_read.all()
+            except:
+                context_dict['user'] = None
+            return render(request, 'Bookworm/userprofile.html',context=context_dict)
+    except:
+        return render(request,'Bookworm/404.html')
 
 def recommendations(request,uslug):
     context_dict = {}
@@ -221,4 +209,3 @@ def to_read(request,bslug):
         user_profile.to_read.add(book)
 
     return show_book(request, bslug)
-

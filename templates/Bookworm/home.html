@@ -3,8 +3,7 @@
 
 {% block title_block %}- Home{% endblock %}
 
-<head><link rel="script" href="{% static 'files/home.js' %}"></head>
-
+{% block style_block %}
 <style>
     /*Home features*/
     div#homegenre {
@@ -70,11 +69,12 @@
         float: right;
     }
 </style>
+{% endblock %}
 
 {% block body_block %}
 
     <div id="homegenre">
-        <h2><strong><a style="color: black; text-decoration: none;" href="{% url 'show_genre' %}">Genres</a></strong></h2>
+        <h2><strong><center><a style="color: black; text-decoration: none;" href="{% url 'show_genre' %}">Genres</a></center></strong></h2>
     </div>
 
     <div class="hometab">
@@ -125,8 +125,6 @@
     document.getElementById(tab).style.display = "block";
     evt.currentTarget.className += " active";
 }
-// Default Open popular books
-document.getElementById("pop").click();
 </script>
 
 {% endblock %}

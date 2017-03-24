@@ -3,14 +3,14 @@
 {% load staticfiles %}
 
 <style>
-    body {margin: auto auto 44px auto;}
+    body { margin: 0;}
     /*Base features*/
     /*Head*/
     div#search {
         top: 0;
         background-color: paleturquoise;
-        padding-bottom: 1%;
         width: 100%;
+        height: 20%;
     }
     ul#searchradio {
         margin-left: 34%;
@@ -134,12 +134,15 @@
         from {transform: scale(0)}
         to {transform: scale(1)}
     }
+
+    {% block style_block %}
+    {% endblock %}
+
 </style>
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
     <title> Bookworm {% block title_block %}{% endblock %}</title>
     <div id="greet">
         {% if user.is_authenticated %}<h4>Hey {{ user }}</h4>{% endif %}
