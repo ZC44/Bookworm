@@ -3,13 +3,14 @@ import json
 from django.template import RequestContext
 from django.contrib.auth import authenticate, login as django_login, logout
 from django.http import HttpResponse, HttpResponseRedirect
-from django.core.urlresolvers import reverse
-from django.shortcuts import render, render_to_response
-from django.db.models import Avg
-from Bookworm.models import *
+#from django.core.urlresolvers import reverse
+from django.shortcuts import render#, render_to_response
+#from django.db.models import Avg
+#from Bookworm.models import *
 from Bookworm.forms import *
 
 # Create your views here.
+
 
 def home(request):
     popular = Book.objects.order_by('-rating')[:5]
@@ -26,13 +27,14 @@ def home(request):
     response = render(request, 'Bookworm/home.html', context=context_dict)
     return response
 
+
 def show_book(request, bslug):
     context_dict = {}
     context_dict['display_rate'] = False
     context_dict['read'] = False
     context_dict['toread'] = False
     try:
-        book = Book.objects.all().get(bookslug=bslug)
+        book = Book.objects.get(bookslug=bslug)
         context_dict['book'] = book
         context_dict['authors'] = book.authors.all()
         context_dict['genres'] = book.genres.all()
@@ -51,16 +53,14 @@ def show_book(request, bslug):
 
             if book in user_profile.to_read.all():
                 context_dict['toread'] = True
-
-
-
         return render(request, 'Bookworm/book.html', context=context_dict)
-    except:
+    except models.ObjectDoesNotExist:
         context_dict['book'] = None
         context_dict['authors'] = None
         context_dict['genres'] = None
         context_dict['rating'] = None
         return render(request,'Bookworm/404.html')
+
 
 def show_genre(request):
     context_dict = {}
@@ -68,12 +68,11 @@ def show_genre(request):
     context_dict['bookgenres'] = Book.objects.values_list('bookslug','title','genres',)
     return render(request, 'Bookworm/genres.html',context=context_dict)
 
+
 def userpage(request,uslug):
     context_dict = {}
-
     try:
         if request.method == 'POST':
-
             try:
                 user = request.user
                 user_profile = UserProfile.objects.get(user_name=user)
@@ -86,9 +85,11 @@ def userpage(request,uslug):
     except:
         return render(request,'Bookworm/404.html')
 
+
 def recommendations(request,uslug):
     context_dict = {}
     return render(request, 'Bookworm/recommendations.html',context=context_dict)
+
 
 def login(request):
     if request.method == 'POST':
@@ -106,6 +107,7 @@ def login(request):
             return HttpResponse("Invalid login details supplied.")
     else:
         return home(request)
+
 
 def register(request):
     registered = False
@@ -130,16 +132,18 @@ def register(request):
     return render(request,'Bookworm/register.html',{'user_form': user_form,'profile_form': profile_form,
                                                     'registered': registered})
 
+
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('home'))
 
+
 def sorry(request):
     return render(request, 'Bookworm/404.html')
 
+
 def rating(request):
     return render(request, 'Bookworm/rating.html')
-
 
 
 def search_results(request):
@@ -156,8 +160,6 @@ def search_results(request):
         context['results'] = Book.objects.filter(authors__author_name__icontains=search).distinct()
 
     return render(request, 'Bookworm/searchresults.html', context = context)
-
-
 
 
 def rate(request,bslug):
